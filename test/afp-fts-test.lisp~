@@ -1,0 +1,13 @@
+;;;; afp-fts-test.lisp
+(in-package :cl-user)
+(defpackage :afp-fts-test
+  (:use :cl
+	:prove))
+
+(in-package #:afp-fts-test)
+
+(prove:plan 1)
+
+(prove:is 3 3)
+
+(prove:finalize)
