@@ -34,8 +34,11 @@ install:
   - ros asdf install
   - ros -e '(ql:update-all-dists :prompt nil)'
   - ros install prove
-  - rm -rf $HOME/.roswell/local-projects/afp-fts
-  - git clone https://github.com/rvedam/afp-fts $HOME/.roswell/local-projects/afp-fts
+  - if [ -d "$HOME/.roswell/local-projects/afp-fts" ]; then
+      cd $HOME/.roswell/local-projects/afp-fts; git pull
+    else
+      git clone https://github.com/rvedam/afp-fts $HOME/.roswell/local-projects/afp-fts
+    fi
 
 cache:
   directories:
