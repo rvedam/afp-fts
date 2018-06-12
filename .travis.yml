@@ -46,6 +46,4 @@ before_script:
   - ros config
 
 script:
-  - if [ "$LISP" = "sbcl-bin" ]; then
-      run-prove test/afp-fts-test.asd
-    fi
+  - run-prove $HOME/.roswell/local-projects/afp-fts/test/afp-fts-test.asd
