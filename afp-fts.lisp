@@ -21,8 +21,8 @@
     (bt:make-thread
      (lambda ()
        (format stdout "Starting server on ~A:~A~%" server-host server-port)
-       (usocket:with-server-socket (servfd (usocket:socket-listen server-host server-port))
-	 (let ((conn (usocket:socket-accept servfd :element-type 'character)))
+       (usocket:with-server-socket (server-socket (usocket:socket-listen server-host server-port))
+	 (let ((conn (usocket:socket-accept server-socket :element-type 'character)))
 	   (unwind-protect
 		(loop :for line = (read-line (usocket:socket-stream conn))
 		   :until (string= line "quit")
@@ -30,6 +30,3 @@
 		   (format stdout "received: ~A~%" line)
 		   :finally (usocket:socket-close conn))))))
      :name "command-line thread")))
-
-	     
-	     

@@ -9,13 +9,15 @@
 
 (prove:plan 2)
 
-(defparameter *server-thread* (afp-fts:start-server "127.0.0.1" 8888))
+(defparameter *server-thread* (afp-fts:start-server "127.0.0.1" 8002))
 
 (prove:ok (bt:thread-alive-p *server-thread*))
 
-(usocket:with-client-socket (clientfd clstrm "127.0.0.1" 8888)
-  (format (usocket:socket-stream clientfd) "quit~%"))
+(handler-case 
+    (usocket:with-client-socket (clientfd clstrm "127.0.0.1" 8002)
+      (format clstrm "quit"))
+  (usocket:connection-refused-error () (print "connection refused")))
 
-(prove:ok (null (bt:thread-alive-p *server-thread*)))
+(prove:ok (bt:thread-alive-p *server-thread*))
 
 (prove:finalize)
